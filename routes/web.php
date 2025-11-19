@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\DashboardController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+// Rute Home/Welcome
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// 1. Rute Dashboard (Menggunakan DashboardController)
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified']) 
+    ->name('dashboard');
+
+// 2. Rute Task (Menggunakan TaskController)
+Route::middleware('auth')->group(function () {
+    Route::resource('tasks', TaskController::class);
+});
+
+
+require __DIR__ . '/auth.php';
