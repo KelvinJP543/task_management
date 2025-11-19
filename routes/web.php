@@ -15,14 +15,14 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Rute Home/Welcome
 Route::get('/', function () {
-    return view('welcome');
+    // Mengarahkan (redirect) pengguna dari URL '/' langsung ke rute bernama 'login'
+    return redirect()->route('login');
 });
 
 // 1. Rute Dashboard (Menggunakan DashboardController)
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified']) 
+    ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 // 2. Rute Task (Menggunakan TaskController)
